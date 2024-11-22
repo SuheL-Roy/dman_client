@@ -406,46 +406,46 @@ class CsvController extends Controller
             //     $return = $weight_price->sub_ReC - $sub_return_discount;
             // }
             
-     if (isset($covarage_area->inside)) {
-        switch ($covarage_area->inside) {
-        case 0: // Outside Dhaka
-            $delivery = $weight_price->out_Re - $outside_discount;
-            $return = $weight_price->out_ReC - $outside_return_discount;
-            break;
+    //  if (isset($covarage_area->inside)) {
+    //     switch ($covarage_area->inside) {
+    //     case 0: // Outside Dhaka
+    //         $delivery = $weight_price->out_Re - $outside_discount;
+    //         $return = $weight_price->out_ReC - $outside_return_discount;
+    //         break;
 
-        case 1: // Inside Dhaka
-            $delivery = $weight_price->ind_Re - $m_discount;
-            $return = $weight_price->ind_ReC - $inside_return_discount;
-            break;
+    //     case 1: // Inside Dhaka
+    //         $delivery = $weight_price->ind_Re - $m_discount;
+    //         $return = $weight_price->ind_ReC - $inside_return_discount;
+    //         break;
 
-        case 2: // Sub Dhaka
-            $delivery = $weight_price->sub_Re - $sub_discount;
-            $return = $weight_price->sub_ReC - $sub_return_discount;
-            break;
+    //     case 2: // Sub Dhaka
+    //         $delivery = $weight_price->sub_Re - $sub_discount;
+    //         $return = $weight_price->sub_ReC - $sub_return_discount;
+    //         break;
 
-        default:
-                    throw new Exception("Invalid coverage area value: {$covarage_area->inside}");
-            }
-        } else {
-            throw new Exception("Coverage area value is not set.");
-        }
+    //     default:
+    //                 throw new Exception("Invalid coverage area value: {$covarage_area->inside}");
+    //         }
+    //     } else {
+    //         throw new Exception("Coverage area value is not set.");
+    //     }
 
 
             /*City Calculation*/
 
-            if ($covarage_area->city_track === 5) {
-                //outside-city
-                $delivery = $weight_price->out_city_Re  - $outside_city_regular_discount;
-                $return = $weight_price->out_ReC - $outside_return_discount;
-            } elseif ($covarage_area->city_track === 3) {
-                //Inside city
-                $delivery = $weight_price->ind_city_Re - $inside_city_regular_discount;
-                $return = $weight_price->ind_ReC - $inside_return_discount;
-            } elseif ($covarage_area->city_track === 4) {
-                //Sub city
-                $delivery = $weight_price->sub_city_Re - $subcity_city_regular_discount;
-                $return = $weight_price->sub_ReC - $sub_return_discount;
-            }
+            // if ($covarage_area->city_track === 5) {
+            //     //outside-city
+            //     $delivery = $weight_price->out_city_Re  - $outside_city_regular_discount;
+            //     $return = $weight_price->out_ReC - $outside_return_discount;
+            // } elseif ($covarage_area->city_track === 3) {
+            //     //Inside city
+            //     $delivery = $weight_price->ind_city_Re - $inside_city_regular_discount;
+            //     $return = $weight_price->ind_ReC - $inside_return_discount;
+            // } elseif ($covarage_area->city_track === 4) {
+            //     //Sub city
+            //     $delivery = $weight_price->sub_city_Re - $subcity_city_regular_discount;
+            //     $return = $weight_price->sub_ReC - $sub_return_discount;
+            // }
 
 
 
@@ -472,65 +472,169 @@ class CsvController extends Controller
             // }
             
             // Ensure necessary variables like $collection, $delivery, and $shopInfo are properly defined before this block
-            if (!isset($covarage_area->inside)) {
-                throw new Exception("Coverage area information is missing.");
-            }
+        //     if (!isset($covarage_area->inside)) {
+        //         throw new Exception("Coverage area information is missing.");
+        //     }
             
-            switch ($covarage_area->inside) {
-                case 0: // Outside Dhaka
-                    $m_cod = ($collection * $shopInfo->m_outside_dhaka_cod) / 100;
-                    $co = $weight_price->outside_dhaka_cod;
-                    $cod = (($collection - $delivery) * $co) / 100;
-                    $fCod = $cod - $m_cod;
-                    break;
+        //     switch ($covarage_area->inside) {
+        //         case 0: // Outside Dhaka
+        //             $m_cod = ($collection * $shopInfo->m_outside_dhaka_cod) / 100;
+        //             $co = $weight_price->outside_dhaka_cod;
+        //             $cod = (($collection - $delivery) * $co) / 100;
+        //             $fCod = $cod - $m_cod;
+        //             break;
             
-                case 1: // Inside Dhaka
-                    $m_cod = ($collection * $shopInfo->m_cod) / 100;
-                    $co = $weight_price->cod;
-                    $cod = ($collection * $co) / 100;
-                    $fCod = $cod - $m_cod;
-                    break;
+        //         case 1: // Inside Dhaka
+        //             $m_cod = ($collection * $shopInfo->m_cod) / 100;
+        //             $co = $weight_price->cod;
+        //             $cod = ($collection * $co) / 100;
+        //             $fCod = $cod - $m_cod;
+        //             break;
             
-                case 2: // Sub Dhaka
-                    $m_cod = ($collection * $shopInfo->m_sub_dhaka_cod) / 100;
-                    $co = $weight_price->sub_dhaka_cod;
-                    $cod = ($collection * $co) / 100;
-                    $fCod = $cod - $m_cod;
-                    break;
+        //         case 2: // Sub Dhaka
+        //             $m_cod = ($collection * $shopInfo->m_sub_dhaka_cod) / 100;
+        //             $co = $weight_price->sub_dhaka_cod;
+        //             $cod = ($collection * $co) / 100;
+        //             $fCod = $cod - $m_cod;
+        //             break;
             
-                default:
-                    throw new Exception("Invalid coverage area value.");
-            }
+        //         default:
+        //             throw new Exception("Invalid coverage area value.");
+        //     }
 
-          // Ensure to handle the calculated $fCod appropriately after this block
+        //   // Ensure to handle the calculated $fCod appropriately after this block
 
 
 
             /*calculate cod city*/
 
-            if ($covarage_area->city_track === 5) {
-                //outside
-                $m_cod = (($collection) * $shopInfo->m_outside_city_cod) / 100;
-                $co = $weight_price->outside_city_cod;
-                $cod = (($collection - $delivery) * $co) / 100;
-                $fCod = $cod - $m_cod;
-            } elseif ($covarage_area->city_track === 3) {
-                //inside
-                $m_cod = (($collection) * $shopInfo->m_inside_city_cod) / 100;
-                $co = $weight_price->inside_city_cod;
-                $cod = (($collection) * $co) / 100;
-                $fCod = $cod - $m_cod;
-            } elseif ($covarage_area->city_track === 4) {
-                //sub
-                $m_cod = (($collection) * $shopInfo->m_sub_city_cod) / 100;
-                $co = $weight_price->sub_city_cod;
-                $cod = (($collection) * $co) / 100;
-                $fCod = $cod - $m_cod;
+            // if ($covarage_area->city_track === 5) {
+            //     //outside
+            //     $m_cod = (($collection) * $shopInfo->m_outside_city_cod) / 100;
+            //     $co = $weight_price->outside_city_cod;
+            //     $cod = (($collection - $delivery) * $co) / 100;
+            //     $fCod = $cod - $m_cod;
+            // } elseif ($covarage_area->city_track === 3) {
+            //     //inside
+            //     $m_cod = (($collection) * $shopInfo->m_inside_city_cod) / 100;
+            //     $co = $weight_price->inside_city_cod;
+            //     $cod = (($collection) * $co) / 100;
+            //     $fCod = $cod - $m_cod;
+            // } elseif ($covarage_area->city_track === 4) {
+            //     //sub
+            //     $m_cod = (($collection) * $shopInfo->m_sub_city_cod) / 100;
+            //     $co = $weight_price->sub_city_cod;
+            //     $cod = (($collection) * $co) / 100;
+            //     $fCod = $cod - $m_cod;
+            // }
+
+
+            if (isset($covarage_area->inside)) {
+                // Coverage area-based calculation
+                switch ($covarage_area->inside) {
+                    case 0: // Outside Dhaka
+                        $delivery = $weight_price->out_Re - $outside_discount;
+                        $return = $weight_price->out_ReC - $outside_return_discount;
+                        break;
+            
+                    case 1: // Inside Dhaka
+                        $delivery = $weight_price->ind_Re - $m_discount;
+                        $return = $weight_price->ind_ReC - $inside_return_discount;
+                        break;
+            
+                    case 2: // Sub Dhaka
+                        $delivery = $weight_price->sub_Re - $sub_discount;
+                        $return = $weight_price->sub_ReC - $sub_return_discount;
+                        break;
+            
+                    default:
+                        throw new Exception("Invalid coverage area value: {$covarage_area->inside}");
+                }
+            } elseif (isset($covarage_area->city_track)) {
+                // City track-based calculation
+                switch ($covarage_area->city_track) {
+                    case 5: // Outside City
+                        $delivery = $weight_price->out_city_Re - $outside_city_regular_discount;
+                        $return = $weight_price->out_ReC - $outside_return_discount;
+                        break;
+            
+                    case 3: // Inside City
+                        $delivery = $weight_price->ind_city_Re - $inside_city_regular_discount;
+                        $return = $weight_price->ind_ReC - $inside_return_discount;
+                        break;
+            
+                    case 4: // Sub City
+                        $delivery = $weight_price->sub_city_Re - $subcity_city_regular_discount;
+                        $return = $weight_price->sub_ReC - $sub_return_discount;
+                        break;
+            
+                    default:
+                        throw new Exception("Invalid city track value: {$covarage_area->city_track}");
+                }
+            } else {
+                throw new Exception("Coverage area or city track value is not set.");
             }
-
-
-
-
+            
+            if (isset($covarage_area->inside)) {
+                // Coverage area-based COD calculation
+                switch ($covarage_area->inside) {
+                    case 0: // Outside Dhaka
+                        $m_cod = ($collection * $shopInfo->m_outside_dhaka_cod) / 100;
+                        $co = $weight_price->outside_dhaka_cod;
+                        $cod = (($collection - $delivery) * $co) / 100;
+                        $fCod = $cod - $m_cod;
+                        break;
+            
+                    case 1: // Inside Dhaka
+                        $m_cod = ($collection * $shopInfo->m_cod) / 100;
+                        $co = $weight_price->cod;
+                        $cod = ($collection * $co) / 100;
+                        $fCod = $cod - $m_cod;
+                        break;
+            
+                    case 2: // Sub Dhaka
+                        $m_cod = ($collection * $shopInfo->m_sub_dhaka_cod) / 100;
+                        $co = $weight_price->sub_dhaka_cod;
+                        $cod = ($collection * $co) / 100;
+                        $fCod = $cod - $m_cod;
+                        break;
+            
+                    default:
+                        throw new Exception("Invalid coverage area value.");
+                }
+            } elseif (isset($covarage_area->city_track)) {
+                // City-based COD calculation
+                switch ($covarage_area->city_track) {
+                    case 5: // Outside City
+                        $m_cod = (($collection) * $shopInfo->m_outside_city_cod) / 100;
+                        $co = $weight_price->outside_city_cod;
+                        $cod = (($collection - $delivery) * $co) / 100;
+                        $fCod = $cod - $m_cod;
+                        break;
+            
+                    case 3: // Inside City
+                        $m_cod = (($collection) * $shopInfo->m_inside_city_cod) / 100;
+                        $co = $weight_price->inside_city_cod;
+                        $cod = (($collection) * $co) / 100;
+                        $fCod = $cod - $m_cod;
+                        break;
+            
+                    case 4: // Sub City
+                        $m_cod = (($collection) * $shopInfo->m_sub_city_cod) / 100;
+                        $co = $weight_price->sub_city_cod;
+                        $cod = (($collection) * $co) / 100;
+                        $fCod = $cod - $m_cod;
+                        break;
+            
+                    default:
+                        throw new Exception("Invalid city track value.");
+                }
+            } else {
+                throw new Exception("Coverage area or city track value is not set.");
+            }
+            
+            // Handle or return $fCod after the conditional logic
+            
             //Calculate Merchant Cod And Insurance
 
             $m_insurance =  (($collection - $delivery) * $shopInfo->m_insurance) / 100;
@@ -915,46 +1019,46 @@ class CsvController extends Controller
             //     $delivery = $weight_price->sub_Ur - $sub_discount;
             //     $return = $weight_price->sub_ReC - $sub_return_discount;
             // }
-              if (isset($covarage_area->inside)) {
-                switch ($covarage_area->inside) {
-                case 0: // Outside Dhaka
-                    $delivery = $weight_price->out_Re - $outside_discount;
-                    $return = $weight_price->out_ReC - $outside_return_discount;
-                    break;
+            //   if (isset($covarage_area->inside)) {
+            //     switch ($covarage_area->inside) {
+            //     case 0: // Outside Dhaka
+            //         $delivery = $weight_price->out_Re - $outside_discount;
+            //         $return = $weight_price->out_ReC - $outside_return_discount;
+            //         break;
         
-                case 1: // Inside Dhaka
-                    $delivery = $weight_price->ind_Re - $m_discount;
-                    $return = $weight_price->ind_ReC - $inside_return_discount;
-                    break;
+            //     case 1: // Inside Dhaka
+            //         $delivery = $weight_price->ind_Re - $m_discount;
+            //         $return = $weight_price->ind_ReC - $inside_return_discount;
+            //         break;
         
-                case 2: // Sub Dhaka
-                    $delivery = $weight_price->sub_Re - $sub_discount;
-                    $return = $weight_price->sub_ReC - $sub_return_discount;
-                    break;
+            //     case 2: // Sub Dhaka
+            //         $delivery = $weight_price->sub_Re - $sub_discount;
+            //         $return = $weight_price->sub_ReC - $sub_return_discount;
+            //         break;
         
-                default:
-                            throw new Exception("Invalid coverage area value: {$covarage_area->inside}");
-                    }
-                } else {
-                    throw new Exception("Coverage area value is not set.");
-                }
+            //     default:
+            //                 throw new Exception("Invalid coverage area value: {$covarage_area->inside}");
+            //         }
+            //     } else {
+            //         throw new Exception("Coverage area value is not set.");
+            //     }
 
 
-            if ($covarage_area->city_track === 5) {
-                //outside-Dhaka
+            // if ($covarage_area->city_track === 5) {
+            //     //outside-Dhaka
 
-                $delivery = $weight_price->out_Ur  - $outside_city_express_discount;
-                $return = $weight_price->out_ReC - $outside_return_discount;
-            } elseif ($covarage_area->city_track === 3) {
-                //Inside Dhaka
+            //     $delivery = $weight_price->out_Ur  - $outside_city_express_discount;
+            //     $return = $weight_price->out_ReC - $outside_return_discount;
+            // } elseif ($covarage_area->city_track === 3) {
+            //     //Inside Dhaka
 
-                $delivery = $weight_price->ind_Ur - $inside_city_express_discount;
-                $return = $weight_price->ind_ReC - $inside_return_discount;
-            } elseif ($covarage_area->city_track === 4) {
-                //Sub Dhaka
-                $delivery = $weight_price->sub_Ur - $sub_discount;
-                $return = $weight_price->sub_ReC - $subcity_city_express_discount;
-            }
+            //     $delivery = $weight_price->ind_Ur - $inside_city_express_discount;
+            //     $return = $weight_price->ind_ReC - $inside_return_discount;
+            // } elseif ($covarage_area->city_track === 4) {
+            //     //Sub Dhaka
+            //     $delivery = $weight_price->sub_Ur - $sub_discount;
+            //     $return = $weight_price->sub_ReC - $subcity_city_express_discount;
+            // }
 
 
             /*calculate cod*/
@@ -978,60 +1082,168 @@ class CsvController extends Controller
             //     $fCod = $cod - $m_cod;
             // }
             
-            if (!isset($covarage_area->inside)) {
-                throw new Exception("Coverage area information is missing.");
-            }
+            // if (!isset($covarage_area->inside)) {
+            //     throw new Exception("Coverage area information is missing.");
+            // }
             
-            switch ($covarage_area->inside) {
-                case 0: // Outside Dhaka
-                    $m_cod = ($collection * $shopInfo->m_outside_dhaka_cod) / 100;
-                    $co = $weight_price->outside_dhaka_cod;
-                    $cod = (($collection - $delivery) * $co) / 100;
-                    $fCod = $cod - $m_cod;
-                    break;
+            // switch ($covarage_area->inside) {
+            //     case 0: // Outside Dhaka
+            //         $m_cod = ($collection * $shopInfo->m_outside_dhaka_cod) / 100;
+            //         $co = $weight_price->outside_dhaka_cod;
+            //         $cod = (($collection - $delivery) * $co) / 100;
+            //         $fCod = $cod - $m_cod;
+            //         break;
             
-                case 1: // Inside Dhaka
-                    $m_cod = ($collection * $shopInfo->m_cod) / 100;
-                    $co = $weight_price->cod;
-                    $cod = ($collection * $co) / 100;
-                    $fCod = $cod - $m_cod;
-                    break;
+            //     case 1: // Inside Dhaka
+            //         $m_cod = ($collection * $shopInfo->m_cod) / 100;
+            //         $co = $weight_price->cod;
+            //         $cod = ($collection * $co) / 100;
+            //         $fCod = $cod - $m_cod;
+            //         break;
             
-                case 2: // Sub Dhaka
-                    $m_cod = ($collection * $shopInfo->m_sub_dhaka_cod) / 100;
-                    $co = $weight_price->sub_dhaka_cod;
-                    $cod = ($collection * $co) / 100;
-                    $fCod = $cod - $m_cod;
-                    break;
+            //     case 2: // Sub Dhaka
+            //         $m_cod = ($collection * $shopInfo->m_sub_dhaka_cod) / 100;
+            //         $co = $weight_price->sub_dhaka_cod;
+            //         $cod = ($collection * $co) / 100;
+            //         $fCod = $cod - $m_cod;
+            //         break;
             
-                default:
-                    throw new Exception("Invalid coverage area value.");
-            }
+            //     default:
+            //         throw new Exception("Invalid coverage area value.");
+            // }
 
-            /*calculate cod city*/
+            // /*calculate cod city*/
 
-            if ($covarage_area->city_track === 5) {
-                //outside
-                $m_cod = (($collection) * $shopInfo->m_outside_city_cod) / 100;
-                $co = $weight_price->outside_city_cod;
-                $cod = (($collection - $delivery) * $co) / 100;
-                $fCod = $cod - $m_cod;
-            } elseif ($covarage_area->city_track === 3) {
-                //inside
-                $m_cod = (($collection) * $shopInfo->m_inside_city_cod) / 100;
-                $co = $weight_price->inside_city_cod;
-                $cod = (($collection) * $co) / 100;
-                $fCod = $cod - $m_cod;
-            } elseif ($covarage_area->city_track === 4) {
-                //sub
-                $m_cod = (($collection) * $shopInfo->m_sub_city_cod) / 100;
-                $co = $weight_price->sub_city_cod;
-                $cod = (($collection) * $co) / 100;
-                $fCod = $cod - $m_cod;
+            // if ($covarage_area->city_track === 5) {
+            //     //outside
+            //     $m_cod = (($collection) * $shopInfo->m_outside_city_cod) / 100;
+            //     $co = $weight_price->outside_city_cod;
+            //     $cod = (($collection - $delivery) * $co) / 100;
+            //     $fCod = $cod - $m_cod;
+            // } elseif ($covarage_area->city_track === 3) {
+            //     //inside
+            //     $m_cod = (($collection) * $shopInfo->m_inside_city_cod) / 100;
+            //     $co = $weight_price->inside_city_cod;
+            //     $cod = (($collection) * $co) / 100;
+            //     $fCod = $cod - $m_cod;
+            // } elseif ($covarage_area->city_track === 4) {
+            //     //sub
+            //     $m_cod = (($collection) * $shopInfo->m_sub_city_cod) / 100;
+            //     $co = $weight_price->sub_city_cod;
+            //     $cod = (($collection) * $co) / 100;
+            //     $fCod = $cod - $m_cod;
+            // }
+
+            if (isset($covarage_area->inside)) {
+                // Coverage area-based calculations
+                switch ($covarage_area->inside) {
+                    case 0: // Outside Dhaka
+                        $delivery = $weight_price->out_Re - $outside_discount;
+                        $return = $weight_price->out_ReC - $outside_return_discount;
+                        break;
+            
+                    case 1: // Inside Dhaka
+                        $delivery = $weight_price->ind_Re - $m_discount;
+                        $return = $weight_price->ind_ReC - $inside_return_discount;
+                        break;
+            
+                    case 2: // Sub Dhaka
+                        $delivery = $weight_price->sub_Re - $sub_discount;
+                        $return = $weight_price->sub_ReC - $sub_return_discount;
+                        break;
+            
+                    default:
+                        throw new Exception("Invalid coverage area value: {$covarage_area->inside}");
+                }
+            } elseif (isset($covarage_area->city_track)) {
+                // City track-based calculations
+                switch ($covarage_area->city_track) {
+                    case 5: // Outside Dhaka (Express Delivery)
+                        $delivery = $weight_price->out_Ur - $outside_city_express_discount;
+                        $return = $weight_price->out_ReC - $outside_return_discount;
+                        break;
+            
+                    case 3: // Inside Dhaka (Express Delivery)
+                        $delivery = $weight_price->ind_Ur - $inside_city_express_discount;
+                        $return = $weight_price->ind_ReC - $inside_return_discount;
+                        break;
+            
+                    case 4: // Sub Dhaka (Express Delivery)
+                        $delivery = $weight_price->sub_Ur -  $subcity_city_express_discount;
+                        $return = $weight_price->sub_ReC -  $sub_return_discount;
+                        break;
+            
+                    default:
+                        throw new Exception("Invalid city track value: {$covarage_area->city_track}");
+                }
+            } else {
+                throw new Exception("Coverage area or city track value is not set.");
             }
+            
+            // Handle $delivery and $return after the condition blocks
+            
 
             //Calculate Merchant Cod And Insurance
-
+            if (isset($covarage_area->inside)) {
+                // Coverage area-based COD calculation
+                switch ($covarage_area->inside) {
+                    case 0: // Outside Dhaka
+                        $m_cod = ($collection * $shopInfo->m_outside_dhaka_cod) / 100;
+                        $co = $weight_price->outside_dhaka_cod;
+                        $cod = (($collection - $delivery) * $co) / 100;
+                        $fCod = $cod - $m_cod;
+                        break;
+            
+                    case 1: // Inside Dhaka
+                        $m_cod = ($collection * $shopInfo->m_cod) / 100;
+                        $co = $weight_price->cod;
+                        $cod = ($collection * $co) / 100;
+                        $fCod = $cod - $m_cod;
+                        break;
+            
+                    case 2: // Sub Dhaka
+                        $m_cod = ($collection * $shopInfo->m_sub_dhaka_cod) / 100;
+                        $co = $weight_price->sub_dhaka_cod;
+                        $cod = ($collection * $co) / 100;
+                        $fCod = $cod - $m_cod;
+                        break;
+            
+                    default:
+                        throw new Exception("Invalid coverage area value.");
+                }
+            } elseif (isset($covarage_area->city_track)) {
+                // City-based COD calculation
+                switch ($covarage_area->city_track) {
+                    case 5: // Outside City
+                        $m_cod = (($collection) * $shopInfo->m_outside_city_cod) / 100;
+                        $co = $weight_price->outside_city_cod;
+                        $cod = (($collection - $delivery) * $co) / 100;
+                        $fCod = $cod - $m_cod;
+                        break;
+            
+                    case 3: // Inside City
+                        $m_cod = (($collection) * $shopInfo->m_inside_city_cod) / 100;
+                        $co = $weight_price->inside_city_cod;
+                        $cod = (($collection) * $co) / 100;
+                        $fCod = $cod - $m_cod;
+                        break;
+            
+                    case 4: // Sub City
+                        $m_cod = (($collection) * $shopInfo->m_sub_city_cod) / 100;
+                        $co = $weight_price->sub_city_cod;
+                        $cod = (($collection) * $co) / 100;
+                        $fCod = $cod - $m_cod;
+                        break;
+            
+                    default:
+                        throw new Exception("Invalid city track value.");
+                }
+            } else {
+                throw new Exception("Coverage area or city track value is not set.");
+            }
+            
+            // Handle or return $fCod after the conditional logic
+            
             $m_insurance =  (($collection - $delivery) * $shopInfo->m_insurance) / 100;
             //Calculate Weight Price Cod And Insurance
 

@@ -1964,73 +1964,73 @@ class OrderController extends Controller
         //     $return = $sPrice->sub_ReC - $return_sub_discount;
         // }
 
-        if (isset($ar->inside)) {
-            switch ($ar->inside) {
-                case 0: // Outside Dhaka
-                    if ($imp === 'Regular') {
-                        $delivery = $sPrice->out_Re - $outside_discount;
-                    } elseif ($imp === 'Urgent') {
-                        $delivery = $sPrice->out_Ur - $express_outside_discount;
-                    }
-                    $return = $sPrice->out_ReC - $return_outside_discount;
-                    break;
+        // if (isset($ar->inside)) {
+        //     switch ($ar->inside) {
+        //         case 0: // Outside Dhaka
+        //             if ($imp === 'Regular') {
+        //                 $delivery = $sPrice->out_Re - $outside_discount;
+        //             } elseif ($imp === 'Urgent') {
+        //                 $delivery = $sPrice->out_Ur - $express_outside_discount;
+        //             }
+        //             $return = $sPrice->out_ReC - $return_outside_discount;
+        //             break;
         
-                case 1: // Inside Dhaka
-                    if ($imp === 'Regular') {
-                        $delivery = $sPrice->ind_Re - $m_discount;
-                    } elseif ($imp === 'Urgent') {
-                        $delivery = $sPrice->ind_Ur - $ur_discount;
-                    }
-                    $return = $sPrice->ind_ReC - $return_inside_discount;
-                    break;
+        //         case 1: // Inside Dhaka
+        //             if ($imp === 'Regular') {
+        //                 $delivery = $sPrice->ind_Re - $m_discount;
+        //             } elseif ($imp === 'Urgent') {
+        //                 $delivery = $sPrice->ind_Ur - $ur_discount;
+        //             }
+        //             $return = $sPrice->ind_ReC - $return_inside_discount;
+        //             break;
         
-                case 2: // Sub Dhaka
-                    if ($imp === 'Regular') {
-                        $delivery = $sPrice->sub_Re - $sub_discount;
-                    } elseif ($imp === 'Urgent') {
-                        $delivery = $sPrice->sub_Ur - $express_sub_discount;
-                    }
-                    $return = $sPrice->sub_ReC - $return_sub_discount;
-                    break;
+        //         case 2: // Sub Dhaka
+        //             if ($imp === 'Regular') {
+        //                 $delivery = $sPrice->sub_Re - $sub_discount;
+        //             } elseif ($imp === 'Urgent') {
+        //                 $delivery = $sPrice->sub_Ur - $express_sub_discount;
+        //             }
+        //             $return = $sPrice->sub_ReC - $return_sub_discount;
+        //             break;
         
-                default:
-                    throw new Exception("Invalid area value: {$ar->inside}");
-            }
-        } else {
-            throw new Exception("Area value is not set.");
-        }
-        
-
-
-
+        //         default:
+        //             throw new Exception("Invalid area value: {$ar->inside}");
+        //     }
+        // } else {
+        //     throw new Exception("Area value is not set.");
+        // }
         
 
-        if ($ar->city_track === 5) {
-            //outside-city
 
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->out_city_Re  - $outside_city_regular_discount;
-            } elseif ($imp == 'Urgent') {
 
-                $delivery = $sPrice->out_City_Ur  - $outside_city_express_discount;
-            }
-        } elseif ($ar->city_track === 3) {
-            //Inside city
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->ind_city_Re - $inside_city_regular_discount;
-            } elseif ($imp == 'Urgent') {
+        
 
-                $delivery = $sPrice->ind_city_Ur -  $inside_city_express_discount;
-            }
-        } elseif ($ar->city_track === 4) {
-            //Sub city
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->sub_city_Re - $subcity_city_regular_discount;
-            } elseif ($imp == 'Urgent') {
+        // if ($ar->city_track === 5) {
+        //     //outside-city
 
-                $delivery = $sPrice->sub_city_Ur - $subcity_city_express_discount;
-            }
-        }
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->out_city_Re  - $outside_city_regular_discount;
+        //     } elseif ($imp == 'Urgent') {
+
+        //         $delivery = $sPrice->out_City_Ur  - $outside_city_express_discount;
+        //     }
+        // } elseif ($ar->city_track === 3) {
+        //     //Inside city
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->ind_city_Re - $inside_city_regular_discount;
+        //     } elseif ($imp == 'Urgent') {
+
+        //         $delivery = $sPrice->ind_city_Ur -  $inside_city_express_discount;
+        //     }
+        // } elseif ($ar->city_track === 4) {
+        //     //Sub city
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->sub_city_Re - $subcity_city_regular_discount;
+        //     } elseif ($imp == 'Urgent') {
+
+        //         $delivery = $sPrice->sub_city_Ur - $subcity_city_express_discount;
+        //     }
+        // }
 
 
 
@@ -2055,7 +2055,130 @@ class OrderController extends Controller
         //     $cod = (($collection) * $co) / 100;
         //     $fCod = $cod - $m_cod;
         // }
+        // if (isset($ar->inside)) {
+        //     switch ($ar->inside) {
+        //         case 0: // Outside Dhaka
+        //             $m_cod = (($collection) * $merchant->m_outside_dhaka_cod) / 100;
+        //             $co = $sPrice->outside_dhaka_cod;
+        //             $cod = (($collection) * $co) / 100;
+        //             $fCod = $cod - $m_cod;
+        //             break;
+        
+        //         case 1: // Inside Dhaka
+        //             $m_cod = (($collection) * $merchant->m_cod) / 100;
+        //             $co = $sPrice->cod;
+        //             $cod = (($collection) * $co) / 100;
+        //             $fCod = $cod - $m_cod;
+        //             break;
+        
+        //         case 2: // Sub Dhaka
+        //             $m_cod = (($collection) * $merchant->m_sub_dhaka_cod) / 100;
+        //             $co = $sPrice->sub_dhaka_cod;
+        //             $cod = (($collection) * $co) / 100;
+        //             $fCod = $cod - $m_cod;
+        //             break;
+        
+        //         default:
+        //             throw new Exception("Invalid area value: {$ar->inside}");
+        //     }
+        // } else {
+        //     throw new Exception("Area value is not set.");
+        // }
+        
+
+
+        // /*cod city calculation*/
+        // if ($ar->city_track === 5) {
+        //     //outside-dhaka
+        //     $m_cod = (($collection) * $merchant->m_outside_city_cod) / 100;
+        //     $co = $sPrice->outside_city_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // } elseif ($ar->city_track === 3) {
+        //     //inside-dhaka
+        //     $m_cod = (($collection) * $merchant->m_inside_city_cod) / 100;
+        //     $co = $sPrice->inside_city_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // } elseif ($ar->city_track === 4) {
+        //     //sub-dhaka
+        //     $m_cod = (($collection) * $merchant->m_sub_city_cod) / 100;
+        //     $co = $sPrice->sub_city_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // }
         if (isset($ar->inside)) {
+            switch ($ar->inside) {
+                case 0: // Outside Dhaka
+                    if ($imp === 'Regular') {
+                        $delivery = $sPrice->out_Re - $outside_discount;
+                    } elseif ($imp === 'Urgent') {
+                        $delivery = $sPrice->out_Ur - $express_outside_discount;
+                    }
+
+                    $return = $sPrice->out_ReC - $return_outside_discount;
+                    break;
+        
+                case 1: // Inside Dhaka
+                    if ($imp === 'Regular') {
+                        $delivery = $sPrice->ind_Re - $m_discount;
+                    } elseif ($imp === 'Urgent') {
+                        $delivery = $sPrice->ind_Ur - $ur_discount;
+                    }
+
+                    $return = $sPrice->ind_ReC - $return_inside_discount;
+                    break;
+        
+                case 2: // Sub Dhaka
+                    if ($imp === 'Regular') {
+                        $delivery = $sPrice->sub_Re - $sub_discount;
+                    } elseif ($imp === 'Urgent') {
+                        $delivery = $sPrice->sub_Ur - $express_sub_discount;
+                    }
+                    $return = $sPrice->sub_ReC - $return_sub_discount;
+                    break;
+        
+                default:
+                    throw new Exception("Invalid area value: {$ar->inside}");
+            }
+        } elseif (isset($ar->city_track)) {
+            switch ($ar->city_track) {
+                case 5: // Outside City
+                    if ($imp == 'Regular') {
+                        $delivery = $sPrice->out_city_Re - $outside_city_regular_discount;
+                    } elseif ($imp == 'Urgent') {
+                        $delivery = $sPrice->out_City_Ur - $outside_city_express_discount;
+                    }
+                    $return = $sPrice->out_ReC - $return_outside_discount;
+                    break;
+        
+                case 3: // Inside City
+                    if ($imp == 'Regular') {
+                        $delivery = $sPrice->ind_city_Re - $inside_city_regular_discount;
+                    } elseif ($imp == 'Urgent') {
+                        $delivery = $sPrice->ind_city_Ur - $inside_city_express_discount;
+                    }
+                    $return = $sPrice->ind_ReC - $return_inside_discount;
+                    break;
+        
+                case 4: // Sub City
+                    if ($imp == 'Regular') {
+                        $delivery = $sPrice->sub_city_Re - $subcity_city_regular_discount;
+                    } elseif ($imp == 'Urgent') {
+                        $delivery = $sPrice->sub_city_Ur - $subcity_city_express_discount;
+                    }
+                    $return = $sPrice->sub_ReC - $return_sub_discount;
+                    break;
+        
+                default:
+                    throw new Exception("Invalid city track value: {$ar->city_track}");
+            }
+        } else {
+            throw new Exception("Either area or city track value must be set.");
+        }
+
+        if (isset($ar->inside)) {
+            // Process based on `inside` value
             switch ($ar->inside) {
                 case 0: // Outside Dhaka
                     $m_cod = (($collection) * $merchant->m_outside_dhaka_cod) / 100;
@@ -2081,33 +2204,36 @@ class OrderController extends Controller
                 default:
                     throw new Exception("Invalid area value: {$ar->inside}");
             }
-        } else {
-            throw new Exception("Area value is not set.");
-        }
+        } elseif (isset($ar->city_track)) {
+            // Process based on `city_track` value
+            switch ($ar->city_track) {
+                case 5: // Outside Dhaka
+                    $m_cod = (($collection) * $merchant->m_outside_city_cod) / 100;
+                    $co = $sPrice->outside_city_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
         
-
-
-        /*cod city calculation*/
-        if ($ar->city_track === 5) {
-            //outside-dhaka
-            $m_cod = (($collection) * $merchant->m_outside_city_cod) / 100;
-            $co = $sPrice->outside_city_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
-        } elseif ($ar->city_track === 3) {
-            //inside-dhaka
-            $m_cod = (($collection) * $merchant->m_inside_city_cod) / 100;
-            $co = $sPrice->inside_city_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
-        } elseif ($ar->city_track === 4) {
-            //sub-dhaka
-            $m_cod = (($collection) * $merchant->m_sub_city_cod) / 100;
-            $co = $sPrice->sub_city_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
+                case 3: // Inside Dhaka
+                    $m_cod = (($collection) * $merchant->m_inside_city_cod) / 100;
+                    $co = $sPrice->inside_city_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                case 4: // Sub Dhaka
+                    $m_cod = (($collection) * $merchant->m_sub_city_cod) / 100;
+                    $co = $sPrice->sub_city_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                default:
+                    throw new Exception("Invalid city track value: {$ar->city_track}");
+            }
+        } else {
+            throw new Exception("Either 'inside' or 'city_track' value must be set.");
         }
-
         //cod
         // $m_cod = (($collection - $delivery) * $merchant->m_cod) / 100;
         $sub_dhaka_m_cod = (($collection - $delivery) * $merchant->m_sub_dhaka_cod) / 100;
@@ -2273,60 +2399,60 @@ class OrderController extends Controller
 
 
         // $delivery = 0;
-        if ($ar->inside === 0) {
-            //outside-Dhaka
+        // if ($ar->inside === 0) {
+        //     //outside-Dhaka
 
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->out_Re  - $outside_discount;
-            } elseif ($imp == 'Urgent') {
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->out_Re  - $outside_discount;
+        //     } elseif ($imp == 'Urgent') {
 
-                $delivery = $sPrice->out_Ur  - $express_outside_discount;
-            }
-        } elseif ($ar->inside === 1) {
-            //Inside Dhaka
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->ind_Re - $m_discount;
-            } elseif ($imp == 'Urgent') {
+        //         $delivery = $sPrice->out_Ur  - $express_outside_discount;
+        //     }
+        // } elseif ($ar->inside === 1) {
+        //     //Inside Dhaka
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->ind_Re - $m_discount;
+        //     } elseif ($imp == 'Urgent') {
 
-                $delivery = $sPrice->ind_Ur - $ur_discount;
-            }
-        } elseif ($ar->inside === 2) {
-            //Sub Dhaka
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->sub_Re - $sub_discount;
-            } elseif ($imp == 'Urgent') {
+        //         $delivery = $sPrice->ind_Ur - $ur_discount;
+        //     }
+        // } elseif ($ar->inside === 2) {
+        //     //Sub Dhaka
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->sub_Re - $sub_discount;
+        //     } elseif ($imp == 'Urgent') {
 
-                $delivery = $sPrice->sub_Ur - $express_sub_discount;
-            }
-        }
+        //         $delivery = $sPrice->sub_Ur - $express_sub_discount;
+        //     }
+        // }
 
 
-        if ($ar->city_track === 5) {
-            //outside-city
+        // if ($ar->city_track === 5) {
+        //     //outside-city
 
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->out_city_Re  - $outside_city_regular_discount;
-            } elseif ($imp == 'Urgent') {
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->out_city_Re  - $outside_city_regular_discount;
+        //     } elseif ($imp == 'Urgent') {
 
-                $delivery = $sPrice->out_City_Ur  - $outside_city_express_discount;
-            }
-        } elseif ($ar->city_track === 3) {
-            //Inside city
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->ind_city_Re - $inside_city_regular_discount;
-            } elseif ($imp == 'Urgent') {
+        //         $delivery = $sPrice->out_City_Ur  - $outside_city_express_discount;
+        //     }
+        // } elseif ($ar->city_track === 3) {
+        //     //Inside city
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->ind_city_Re - $inside_city_regular_discount;
+        //     } elseif ($imp == 'Urgent') {
 
-                $delivery = $sPrice->ind_city_Ur -  $inside_city_express_discount;
-            }
-        } elseif ($ar->city_track === 4) {
-            //Sub city
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->sub_city_Re - $subcity_city_regular_discount;
-            } elseif ($imp == 'Urgent') {
+        //         $delivery = $sPrice->ind_city_Ur -  $inside_city_express_discount;
+        //     }
+        // } elseif ($ar->city_track === 4) {
+        //     //Sub city
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->sub_city_Re - $subcity_city_regular_discount;
+        //     } elseif ($imp == 'Urgent') {
 
-                $delivery = $sPrice->sub_city_Ur - $subcity_city_express_discount;
-            }
-        }
+        //         $delivery = $sPrice->sub_city_Ur - $subcity_city_express_discount;
+        //     }
+        // }
 
 
 
@@ -2351,47 +2477,171 @@ class OrderController extends Controller
         //     $fCod = $cod - $m_cod;
         // }
 
-        if ($ar->inside === 0) {
-            //outside-dhaka
-            $m_cod = (($collection) * $merchant->m_outside_dhaka_cod) / 100;
-            $co = $sPrice->outside_dhaka_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
-        } elseif ($ar->inside === 1) {
-            //inside-dhaka
-            $m_cod = (($collection) * $merchant->m_cod) / 100;
-            $co = $sPrice->cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
-        } elseif ($ar->inside === 2) {
-            //sub-dhaka
-            $m_cod = (($collection) * $merchant->m_sub_dhaka_cod) / 100;
-            $co = $sPrice->sub_dhaka_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
-        }
 
 
-        /*cod city calculation*/
-        if ($ar->city_track === 5) {
-            //outside-dhaka
-            $m_cod = (($collection) * $merchant->m_outside_city_cod) / 100;
-            $co = $sPrice->outside_city_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
-        } elseif ($ar->city_track === 3) {
-            //inside-dhaka
-            $m_cod = (($collection) * $merchant->m_inside_city_cod) / 100;
-            $co = $sPrice->inside_city_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
-        } elseif ($ar->city_track === 4) {
-            //sub-dhaka
-            $m_cod = (($collection) * $merchant->m_sub_city_cod) / 100;
-            $co = $sPrice->sub_city_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
+        if (isset($ar->inside)) {
+            switch ($ar->inside) {
+                case 0: // Outside Dhaka
+                    if ($imp === 'Regular') {
+                        $delivery = $sPrice->out_Re - $outside_discount;
+                    } elseif ($imp === 'Urgent') {
+                        $delivery = $sPrice->out_Ur - $express_outside_discount;
+                    }
+                    break;
+        
+                case 1: // Inside Dhaka
+                    if ($imp === 'Regular') {
+                        $delivery = $sPrice->ind_Re - $m_discount;
+                    } elseif ($imp === 'Urgent') {
+                        $delivery = $sPrice->ind_Ur - $ur_discount;
+                    }
+                    break;
+        
+                case 2: // Sub Dhaka
+                    if ($imp === 'Regular') {
+                        $delivery = $sPrice->sub_Re - $sub_discount;
+                    } elseif ($imp === 'Urgent') {
+                        $delivery = $sPrice->sub_Ur - $express_sub_discount;
+                    }
+                    break;
+        
+                default:
+                    throw new Exception("Invalid area value: {$ar->inside}");
+            }
+        } elseif (isset($ar->city_track)) {
+            switch ($ar->city_track) {
+                case 5: // Outside City
+                    if ($imp == 'Regular') {
+                        $delivery = $sPrice->out_city_Re - $outside_city_regular_discount;
+                    } elseif ($imp == 'Urgent') {
+                        $delivery = $sPrice->out_City_Ur - $outside_city_express_discount;
+                    }
+                    break;
+        
+                case 3: // Inside City
+                    if ($imp == 'Regular') {
+                        $delivery = $sPrice->ind_city_Re - $inside_city_regular_discount;
+                    } elseif ($imp == 'Urgent') {
+                        $delivery = $sPrice->ind_city_Ur - $inside_city_express_discount;
+                    }
+                    break;
+        
+                case 4: // Sub City
+                    if ($imp == 'Regular') {
+                        $delivery = $sPrice->sub_city_Re - $subcity_city_regular_discount;
+                    } elseif ($imp == 'Urgent') {
+                        $delivery = $sPrice->sub_city_Ur - $subcity_city_express_discount;
+                    }
+                    break;
+        
+                default:
+                    throw new Exception("Invalid city track value: {$ar->city_track}");
+            }
+        } else {
+            throw new Exception("Either area or city track value must be set.");
         }
+        
+
+        // if ($ar->inside === 0) {
+        //     //outside-dhaka
+        //     $m_cod = (($collection) * $merchant->m_outside_dhaka_cod) / 100;
+        //     $co = $sPrice->outside_dhaka_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // } elseif ($ar->inside === 1) {
+        //     //inside-dhaka
+        //     $m_cod = (($collection) * $merchant->m_cod) / 100;
+        //     $co = $sPrice->cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // } elseif ($ar->inside === 2) {
+        //     //sub-dhaka
+        //     $m_cod = (($collection) * $merchant->m_sub_dhaka_cod) / 100;
+        //     $co = $sPrice->sub_dhaka_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // }
+
+
+        // /*cod city calculation*/
+        // if ($ar->city_track === 5) {
+        //     //outside-dhaka
+        //     $m_cod = (($collection) * $merchant->m_outside_city_cod) / 100;
+        //     $co = $sPrice->outside_city_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // } elseif ($ar->city_track === 3) {
+        //     //inside-dhaka
+        //     $m_cod = (($collection) * $merchant->m_inside_city_cod) / 100;
+        //     $co = $sPrice->inside_city_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // } elseif ($ar->city_track === 4) {
+        //     //sub-dhaka
+        //     $m_cod = (($collection) * $merchant->m_sub_city_cod) / 100;
+        //     $co = $sPrice->sub_city_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // }
+
+        if (isset($ar->inside)) {
+            // Process based on `inside` value
+            switch ($ar->inside) {
+                case 0: // Outside Dhaka
+                    $m_cod = (($collection) * $merchant->m_outside_dhaka_cod) / 100;
+                    $co = $sPrice->outside_dhaka_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                case 1: // Inside Dhaka
+                    $m_cod = (($collection) * $merchant->m_cod) / 100;
+                    $co = $sPrice->cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                case 2: // Sub Dhaka
+                    $m_cod = (($collection) * $merchant->m_sub_dhaka_cod) / 100;
+                    $co = $sPrice->sub_dhaka_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                default:
+                    throw new Exception("Invalid area value: {$ar->inside}");
+            }
+        } elseif (isset($ar->city_track)) {
+            // Process based on `city_track` value
+            switch ($ar->city_track) {
+                case 5: // Outside Dhaka
+                    $m_cod = (($collection) * $merchant->m_outside_city_cod) / 100;
+                    $co = $sPrice->outside_city_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                case 3: // Inside Dhaka
+                    $m_cod = (($collection) * $merchant->m_inside_city_cod) / 100;
+                    $co = $sPrice->inside_city_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                case 4: // Sub Dhaka
+                    $m_cod = (($collection) * $merchant->m_sub_city_cod) / 100;
+                    $co = $sPrice->sub_city_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                default:
+                    throw new Exception("Invalid city track value: {$ar->city_track}");
+            }
+        } else {
+            throw new Exception("Either 'inside' or 'city_track' value must be set.");
+        }
+        
 
 
 
@@ -2542,90 +2792,90 @@ class OrderController extends Controller
 
 
 
-        if ($ar->inside === 0) {
-            //outside-Dhaka
+        // if ($ar->inside === 0) {
+        //     //outside-Dhaka
 
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->out_Re  - $outside_discount;
-            } elseif ($imp == 'Urgent') {
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->out_Re  - $outside_discount;
+        //     } elseif ($imp == 'Urgent') {
 
-                $delivery = $sPrice->out_Ur  - $express_outside_discount;
-            }
-            $return = $sPrice->out_ReC - $return_outside_discount;
-        } elseif ($ar->inside === 1) {
-            //Inside Dhaka
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->ind_Re - $m_discount;
-            } elseif ($imp == 'Urgent') {
+        //         $delivery = $sPrice->out_Ur  - $express_outside_discount;
+        //     }
+        //     $return = $sPrice->out_ReC - $return_outside_discount;
+        // } elseif ($ar->inside === 1) {
+        //     //Inside Dhaka
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->ind_Re - $m_discount;
+        //     } elseif ($imp == 'Urgent') {
 
-                $delivery = $sPrice->ind_Ur - $ur_discount;
-            }
-            $return = $sPrice->ind_ReC - $return_inside_discount;
-        } else {
-            //Sub Dhaka
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->sub_Re - $sub_discount;
-            } elseif ($imp == 'Urgent') {
+        //         $delivery = $sPrice->ind_Ur - $ur_discount;
+        //     }
+        //     $return = $sPrice->ind_ReC - $return_inside_discount;
+        // } else {
+        //     //Sub Dhaka
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->sub_Re - $sub_discount;
+        //     } elseif ($imp == 'Urgent') {
 
-                $delivery = $sPrice->sub_Ur - $express_sub_discount;
-            }
-            $return = $sPrice->sub_ReC - $return_sub_discount;
-        }
-
-
-
-
-        if ($ar->city_track === 5) {
-            //outside-city
-
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->out_city_Re  - $outside_city_regular_discount;
-            } elseif ($imp == 'Urgent') {
-
-                $delivery = $sPrice->out_City_Ur  - $outside_city_express_discount;
-            }
-        } elseif ($ar->city_track === 3) {
-            //Inside city
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->ind_city_Re - $inside_city_regular_discount;
-            } elseif ($imp == 'Urgent') {
-
-                $delivery = $sPrice->ind_city_Ur -  $inside_city_express_discount;
-            }
-        } elseif ($ar->city_track === 4) {
-            //Sub city
-            if ($imp == 'Regular') {
-                $delivery = $sPrice->sub_city_Re - $subcity_city_regular_discount;
-            } elseif ($imp == 'Urgent') {
-
-                $delivery = $sPrice->sub_city_Ur - $subcity_city_express_discount;
-            }
-        }
+        //         $delivery = $sPrice->sub_Ur - $express_sub_discount;
+        //     }
+        //     $return = $sPrice->sub_ReC - $return_sub_discount;
+        // }
 
 
 
 
+        // if ($ar->city_track === 5) {
+        //     //outside-city
 
-        /*cod calculation*/
-        if ($ar->inside === 0) {
-            //outside-dhaka
-            $m_cod = (($collection) * $merchant->m_outside_dhaka_cod) / 100;
-            $co = $sPrice->outside_dhaka_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
-        } elseif ($ar->inside === 1) {
-            //inside-dhaka
-            $m_cod = (($collection) * $merchant->m_cod) / 100;
-            $co = $sPrice->cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
-        } else {
-            //sub-dhaka
-            $m_cod = (($collection) * $merchant->m_sub_dhaka_cod) / 100;
-            $co = $sPrice->sub_dhaka_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
-        }
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->out_city_Re  - $outside_city_regular_discount;
+        //     } elseif ($imp == 'Urgent') {
+
+        //         $delivery = $sPrice->out_City_Ur  - $outside_city_express_discount;
+        //     }
+        // } elseif ($ar->city_track === 3) {
+        //     //Inside city
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->ind_city_Re - $inside_city_regular_discount;
+        //     } elseif ($imp == 'Urgent') {
+
+        //         $delivery = $sPrice->ind_city_Ur -  $inside_city_express_discount;
+        //     }
+        // } elseif ($ar->city_track === 4) {
+        //     //Sub city
+        //     if ($imp == 'Regular') {
+        //         $delivery = $sPrice->sub_city_Re - $subcity_city_regular_discount;
+        //     } elseif ($imp == 'Urgent') {
+
+        //         $delivery = $sPrice->sub_city_Ur - $subcity_city_express_discount;
+        //     }
+        // }
+
+
+
+
+
+        // /*cod calculation*/
+        // if ($ar->inside === 0) {
+        //     //outside-dhaka
+        //     $m_cod = (($collection) * $merchant->m_outside_dhaka_cod) / 100;
+        //     $co = $sPrice->outside_dhaka_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // } elseif ($ar->inside === 1) {
+        //     //inside-dhaka
+        //     $m_cod = (($collection) * $merchant->m_cod) / 100;
+        //     $co = $sPrice->cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // } else {
+        //     //sub-dhaka
+        //     $m_cod = (($collection) * $merchant->m_sub_dhaka_cod) / 100;
+        //     $co = $sPrice->sub_dhaka_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // }
 
 
 
@@ -2650,24 +2900,152 @@ class OrderController extends Controller
         //     $fCod = $cod - $m_cod;
         // }
 
-        if ($ar->city_track === 5) {
-            //outside-dhaka
-            $m_cod = (($collection) * $merchant->m_outside_city_cod) / 100;
-            $co = $sPrice->outside_city_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
-        } elseif ($ar->city_track === 3) {
-            //inside-dhaka
-            $m_cod = (($collection) * $merchant->m_inside_city_cod) / 100;
-            $co = $sPrice->inside_city_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
-        } elseif ($ar->city_track === 4) {
-            //sub-dhaka
-            $m_cod = (($collection) * $merchant->m_sub_city_cod) / 100;
-            $co = $sPrice->sub_city_cod;
-            $cod = (($collection) * $co) / 100;
-            $fCod = $cod - $m_cod;
+        // if ($ar->city_track === 5) {
+        //     //outside-dhaka
+        //     $m_cod = (($collection) * $merchant->m_outside_city_cod) / 100;
+        //     $co = $sPrice->outside_city_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // } elseif ($ar->city_track === 3) {
+        //     //inside-dhaka
+        //     $m_cod = (($collection) * $merchant->m_inside_city_cod) / 100;
+        //     $co = $sPrice->inside_city_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // } elseif ($ar->city_track === 4) {
+        //     //sub-dhaka
+        //     $m_cod = (($collection) * $merchant->m_sub_city_cod) / 100;
+        //     $co = $sPrice->sub_city_cod;
+        //     $cod = (($collection) * $co) / 100;
+        //     $fCod = $cod - $m_cod;
+        // }
+
+        if (isset($ar->inside)) {
+            switch ($ar->inside) {
+                case 0: // Outside Dhaka
+                    if ($imp === 'Regular') {
+                        $delivery = $sPrice->out_Re - $outside_discount;
+                    } elseif ($imp === 'Urgent') {
+                        $delivery = $sPrice->out_Ur - $express_outside_discount;
+                    }
+
+                    $return = $sPrice->out_ReC - $return_outside_discount;
+                    break;
+        
+                case 1: // Inside Dhaka
+                    if ($imp === 'Regular') {
+                        $delivery = $sPrice->ind_Re - $m_discount;
+                    } elseif ($imp === 'Urgent') {
+                        $delivery = $sPrice->ind_Ur - $ur_discount;
+                    }
+
+                    $return = $sPrice->ind_ReC - $return_inside_discount;
+                    break;
+        
+                case 2: // Sub Dhaka
+                    if ($imp === 'Regular') {
+                        $delivery = $sPrice->sub_Re - $sub_discount;
+                    } elseif ($imp === 'Urgent') {
+                        $delivery = $sPrice->sub_Ur - $express_sub_discount;
+                    }
+                    $return = $sPrice->sub_ReC - $return_sub_discount;
+                    break;
+        
+                default:
+                    throw new Exception("Invalid area value: {$ar->inside}");
+            }
+        } elseif (isset($ar->city_track)) {
+            switch ($ar->city_track) {
+                case 5: // Outside City
+                    if ($imp == 'Regular') {
+                        $delivery = $sPrice->out_city_Re - $outside_city_regular_discount;
+                    } elseif ($imp == 'Urgent') {
+                        $delivery = $sPrice->out_City_Ur - $outside_city_express_discount;
+                    }
+                    $return = $sPrice->out_ReC - $return_outside_discount;
+                    break;
+        
+                case 3: // Inside City
+                    if ($imp == 'Regular') {
+                        $delivery = $sPrice->ind_city_Re - $inside_city_regular_discount;
+                    } elseif ($imp == 'Urgent') {
+                        $delivery = $sPrice->ind_city_Ur - $inside_city_express_discount;
+                    }
+                    $return = $sPrice->ind_ReC - $return_inside_discount;
+                    break;
+        
+                case 4: // Sub City
+                    if ($imp == 'Regular') {
+                        $delivery = $sPrice->sub_city_Re - $subcity_city_regular_discount;
+                    } elseif ($imp == 'Urgent') {
+                        $delivery = $sPrice->sub_city_Ur - $subcity_city_express_discount;
+                    }
+                    $return = $sPrice->sub_ReC - $return_sub_discount;
+                    break;
+        
+                default:
+                    throw new Exception("Invalid city track value: {$ar->city_track}");
+            }
+        } else {
+            throw new Exception("Either area or city track value must be set.");
+        }
+
+        if (isset($ar->inside)) {
+            // Process based on `inside` value
+            switch ($ar->inside) {
+                case 0: // Outside Dhaka
+                    $m_cod = (($collection) * $merchant->m_outside_dhaka_cod) / 100;
+                    $co = $sPrice->outside_dhaka_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                case 1: // Inside Dhaka
+                    $m_cod = (($collection) * $merchant->m_cod) / 100;
+                    $co = $sPrice->cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                case 2: // Sub Dhaka
+                    $m_cod = (($collection) * $merchant->m_sub_dhaka_cod) / 100;
+                    $co = $sPrice->sub_dhaka_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                default:
+                    throw new Exception("Invalid area value: {$ar->inside}");
+            }
+        } elseif (isset($ar->city_track)) {
+            // Process based on `city_track` value
+            switch ($ar->city_track) {
+                case 5: // Outside Dhaka
+                    $m_cod = (($collection) * $merchant->m_outside_city_cod) / 100;
+                    $co = $sPrice->outside_city_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                case 3: // Inside Dhaka
+                    $m_cod = (($collection) * $merchant->m_inside_city_cod) / 100;
+                    $co = $sPrice->inside_city_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                case 4: // Sub Dhaka
+                    $m_cod = (($collection) * $merchant->m_sub_city_cod) / 100;
+                    $co = $sPrice->sub_city_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                default:
+                    throw new Exception("Invalid city track value: {$ar->city_track}");
+            }
+        } else {
+            throw new Exception("Either 'inside' or 'city_track' value must be set.");
         }
 
         /*Insurance Calculation*/
@@ -2849,7 +3227,20 @@ class OrderController extends Controller
 
         // $home = $ar->h_delivery;
         // $w = $request->weight;
+        
+        $return_inside_discount = $merchant->return_inside_dhaka_discount;
+        $return_outside_discount = $merchant->return_outside_dhaka_discount;
+        $return_sub_discount = $merchant->return_sub_dhaka_discount;
 
+        /* city calculation */
+
+        $inside_city_regular_discount = $merchant->m_ind_city_Re;
+        $outside_city_regular_discount = $merchant->m_out_city_Re;
+        $subcity_city_regular_discount = $merchant->m_sub_city_Re;
+
+        $inside_city_express_discount = $merchant->m_ind_city_Ur;
+        $outside_city_express_discount = $merchant->m_out_City_Ur;
+        $subcity_city_express_discount = $merchant->m_sub_city_Ur;
 
 
         // if ($ar->inside === 0) {
@@ -2881,41 +3272,41 @@ class OrderController extends Controller
         //     }
         // }
 
-        if (isset($ar->inside)) {
-            switch ($ar->inside) {
-                case 0: // Outside Dhaka
-                    if ($imp === 'Regular') {
-                        $delivery = $sPrice->out_Re - $outside_discount;
-                    } elseif ($imp === 'Urgent') {
-                        $delivery = $sPrice->out_Ur - $express_outside_discount;
-                    }
+        // if (isset($ar->inside)) {
+        //     switch ($ar->inside) {
+        //         case 0: // Outside Dhaka
+        //             if ($imp === 'Regular') {
+        //                 $delivery = $sPrice->out_Re - $outside_discount;
+        //             } elseif ($imp === 'Urgent') {
+        //                 $delivery = $sPrice->out_Ur - $express_outside_discount;
+        //             }
                   
-                    break;
+        //             break;
         
-                case 1: // Inside Dhaka
-                    if ($imp === 'Regular') {
-                        $delivery = $sPrice->ind_Re - $m_discount;
-                    } elseif ($imp === 'Urgent') {
-                        $delivery = $sPrice->ind_Ur - $ur_discount;
-                    }
+        //         case 1: // Inside Dhaka
+        //             if ($imp === 'Regular') {
+        //                 $delivery = $sPrice->ind_Re - $m_discount;
+        //             } elseif ($imp === 'Urgent') {
+        //                 $delivery = $sPrice->ind_Ur - $ur_discount;
+        //             }
                 
-                    break;
+        //             break;
         
-                case 2: // Sub Dhaka
-                    if ($imp === 'Regular') {
-                        $delivery = $sPrice->sub_Re - $sub_discount;
-                    } elseif ($imp === 'Urgent') {
-                        $delivery = $sPrice->sub_Ur - $express_sub_discount;
-                    }
+        //         case 2: // Sub Dhaka
+        //             if ($imp === 'Regular') {
+        //                 $delivery = $sPrice->sub_Re - $sub_discount;
+        //             } elseif ($imp === 'Urgent') {
+        //                 $delivery = $sPrice->sub_Ur - $express_sub_discount;
+        //             }
                   
-                    break;
+        //             break;
         
-                default:
-                    throw new Exception("Invalid area value: {$ar->inside}");
-            }
-        } else {
-            throw new Exception("Area value is not set.");
-        }
+        //         default:
+        //             throw new Exception("Invalid area value: {$ar->inside}");
+        //     }
+        // } else {
+        //     throw new Exception("Area value is not set.");
+        // }
         
 
         // $imp = $request->imp;
@@ -2928,7 +3319,108 @@ class OrderController extends Controller
 
         //dur 
 
+        // if (isset($ar->inside)) {
+        //     switch ($ar->inside) {
+        //         case 0: // Outside Dhaka
+        //             $m_cod = (($collection) * $merchant->m_outside_dhaka_cod) / 100;
+        //             $co = $sPrice->outside_dhaka_cod;
+        //             $cod = (($collection) * $co) / 100;
+        //             $fCod = $cod - $m_cod;
+        //             break;
+        
+        //         case 1: // Inside Dhaka
+        //             $m_cod = (($collection) * $merchant->m_cod) / 100;
+        //             $co = $sPrice->cod;
+        //             $cod = (($collection) * $co) / 100;
+        //             $fCod = $cod - $m_cod;
+        //             break;
+        
+        //         case 2: // Sub Dhaka
+        //             $m_cod = (($collection) * $merchant->m_sub_dhaka_cod) / 100;
+        //             $co = $sPrice->sub_dhaka_cod;
+        //             $cod = (($collection) * $co) / 100;
+        //             $fCod = $cod - $m_cod;
+        //             break;
+        
+        //         default:
+        //             throw new Exception("Invalid area value: {$ar->inside}");
+        //     }
+        // } else {
+        //     throw new Exception("Area value is not set.");
+        // }
+
         if (isset($ar->inside)) {
+            switch ($ar->inside) {
+                case 0: // Outside Dhaka
+                    if ($imp === 'Regular') {
+                        $delivery = $sPrice->out_Re - $outside_discount;
+                    } elseif ($imp === 'Urgent') {
+                        $delivery = $sPrice->out_Ur - $express_outside_discount;
+                    }
+
+                    $return = $sPrice->out_ReC - $return_outside_discount;
+                    break;
+        
+                case 1: // Inside Dhaka
+                    if ($imp === 'Regular') {
+                        $delivery = $sPrice->ind_Re - $m_discount;
+                    } elseif ($imp === 'Urgent') {
+                        $delivery = $sPrice->ind_Ur - $ur_discount;
+                    }
+
+                    $return = $sPrice->ind_ReC - $return_inside_discount;
+                    break;
+        
+                case 2: // Sub Dhaka
+                    if ($imp === 'Regular') {
+                        $delivery = $sPrice->sub_Re - $sub_discount;
+                    } elseif ($imp === 'Urgent') {
+                        $delivery = $sPrice->sub_Ur - $express_sub_discount;
+                    }
+                    $return = $sPrice->sub_ReC - $return_sub_discount;
+                    break;
+        
+                default:
+                    throw new Exception("Invalid area value: {$ar->inside}");
+            }
+        } elseif (isset($ar->city_track)) {
+            switch ($ar->city_track) {
+                case 5: // Outside City
+                    if ($imp == 'Regular') {
+                        $delivery = $sPrice->out_city_Re - $outside_city_regular_discount;
+                    } elseif ($imp == 'Urgent') {
+                        $delivery = $sPrice->out_City_Ur - $outside_city_express_discount;
+                    }
+                    $return = $sPrice->out_ReC - $return_outside_discount;
+                    break;
+        
+                case 3: // Inside City
+                    if ($imp == 'Regular') {
+                        $delivery = $sPrice->ind_city_Re - $inside_city_regular_discount;
+                    } elseif ($imp == 'Urgent') {
+                        $delivery = $sPrice->ind_city_Ur - $inside_city_express_discount;
+                    }
+                    $return = $sPrice->ind_ReC - $return_inside_discount;
+                    break;
+        
+                case 4: // Sub City
+                    if ($imp == 'Regular') {
+                        $delivery = $sPrice->sub_city_Re - $subcity_city_regular_discount;
+                    } elseif ($imp == 'Urgent') {
+                        $delivery = $sPrice->sub_city_Ur - $subcity_city_express_discount;
+                    }
+                    $return = $sPrice->sub_ReC - $return_sub_discount;
+                    break;
+        
+                default:
+                    throw new Exception("Invalid city track value: {$ar->city_track}");
+            }
+        } else {
+            throw new Exception("Either area or city track value must be set.");
+        }
+
+        if (isset($ar->inside)) {
+            // Process based on `inside` value
             switch ($ar->inside) {
                 case 0: // Outside Dhaka
                     $m_cod = (($collection) * $merchant->m_outside_dhaka_cod) / 100;
@@ -2954,8 +3446,35 @@ class OrderController extends Controller
                 default:
                     throw new Exception("Invalid area value: {$ar->inside}");
             }
+        } elseif (isset($ar->city_track)) {
+            // Process based on `city_track` value
+            switch ($ar->city_track) {
+                case 5: // Outside Dhaka
+                    $m_cod = (($collection) * $merchant->m_outside_city_cod) / 100;
+                    $co = $sPrice->outside_city_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                case 3: // Inside Dhaka
+                    $m_cod = (($collection) * $merchant->m_inside_city_cod) / 100;
+                    $co = $sPrice->inside_city_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                case 4: // Sub Dhaka
+                    $m_cod = (($collection) * $merchant->m_sub_city_cod) / 100;
+                    $co = $sPrice->sub_city_cod;
+                    $cod = (($collection) * $co) / 100;
+                    $fCod = $cod - $m_cod;
+                    break;
+        
+                default:
+                    throw new Exception("Invalid city track value: {$ar->city_track}");
+            }
         } else {
-            throw new Exception("Area value is not set.");
+            throw new Exception("Either 'inside' or 'city_track' value must be set.");
         }
         
 
